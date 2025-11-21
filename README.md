@@ -93,7 +93,7 @@ fonction win_game (player,board,row,col,drow,dcol):
 6. Qu'est-ce qu'un "action mask" et pourquoi est-il important ? Tableau de taille 7 (puisque 7 colonnes) avec des 1 là où le joueur a le droit de jouer (0 signifie colonne pleine) -> important car permet de filtrer les actions interdites
 
 
-##Tache 2.2
+### Tache 2.2
 
 
 1. Quelle est la forme du tableau d'observation ?
@@ -106,3 +106,6 @@ le vecteur de taille 2 sert à in diquer si la case les rempli et par quel joueu
 
 5. Quelles sont les valeurs possibles dans le tableau d'observation ?
 dans chaque case du tableau, les valeurs possibles sont [0,1], [1,0], [0,0]
+
+
+
