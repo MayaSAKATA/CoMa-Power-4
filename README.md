@@ -60,7 +60,7 @@ Victoire de O en diagonale décroissante
 A partir de la dernière action, il faut compter le nombre de pions successifs du dernier joueur dans chaque direction et vérifier si ce nombre est supérieur à 4.
 
 4. Décrire l'algorithme sans le coder (pseudo-code)
-
+```
 fonction win_game (player,board,row,col,drow,dcol):
     count1 = 0
     current_row, current_col = row,col
@@ -79,7 +79,7 @@ fonction win_game (player,board,row,col,drow,dcol):
     
     count = count1 + count2
     return count >= 4
-        
+```        
 
 ## Partie 2 
 
