@@ -1,7 +1,9 @@
 # CoMa-Power-4
-## Partie 1 
+
+## Partie 1
 
 ### Tâche 1.1
+
 1. Quelles sont les dimensions d'un plateau de Puissance 4 ?
 6x7
 2. Comment un joueur gagne-t-il la partie ?
@@ -11,11 +13,12 @@ fin du jeu sans gagnant
 4. Un joueur peut-il placer un pion dans une colonne qui est déjà pleine ?
 non
 5. Quels sont les résultats possibles d'une partie ?
-joueur 1 gagne 
-joueur 2 gagne 
-égalité 
+joueur 1 gagne
+joueur 2 gagne
+égalité
 
-### Tâche 1.2 
+### Tâche 1.2
+
 1. Dessinez un diagramme montrant les quatre motifs de victoire différents
 
 Victoire de X en diagonale croissante
@@ -53,12 +56,10 @@ Victoire de O en diagonale décroissante
 | — | X | O | X | O | — | — |<br>
 | — | X | X | O | O | — | — |<br>
 | — | X | O | X | O | — | — |<br>
-
 2. Pour une position donnée, combien de directions doivent être vérifiées pour une victoire ?
 8 positions à vérifier (haut, bas, gauche, droite, et les 4 diagonales)
 3. Pour chacune de ces directions, quel est l'algorithme pour vérifier l'alignement de 4 pions ?
 A partir de la dernière action, il faut compter le nombre de pions successifs du dernier joueur dans chaque direction et vérifier si ce nombre est supérieur à 4.
-
 4. Décrire l'algorithme sans le coder (pseudo-code)
 ```
 fonction win_game (player,board,row,col,drow,dcol):
@@ -79,9 +80,9 @@ fonction win_game (player,board,row,col,drow,dcol):
     
     count = count1 + count2
     return count >= 4
-```        
+```
 
-## Partie 2 
+## Partie 2
 
 ### Tâche 2.1
 
@@ -92,20 +93,15 @@ fonction win_game (player,board,row,col,drow,dcol):
 5. Quelle est la structure de l'observation retournée ? observation (dict), reward (float), termination (bool), truncation (bool), info = env.last() (dict)
 6. Qu'est-ce qu'un "action mask" et pourquoi est-il important ? Tableau de taille 7 (puisque 7 colonnes) avec des 1 là où le joueur a le droit de jouer (0 signifie colonne pleine) -> important car permet de filtrer les actions interdites
 
-
 ### Tache 2.2
-
 
 1. Quelle est la forme du tableau d'observation ?
 Le tableau est de la forme (6,7,2).
-
-3. Que représente chaque dimension ?
+2. Que représente chaque dimension ?
 le vecteur de taille 6 représente le nombre de lignes
 le vecteur de taille 7 représente le nombre de colonnes
-le vecteur de taille 2 sert à in diquer si la case les rempli et par quel joueur
-
-5. Quelles sont les valeurs possibles dans le tableau d'observation ?
+le vecteur de taille 2 sert à indiquer si la case est remplie et par quel joueur
+3. Quelles sont les valeurs possibles dans le tableau d'observation ?
 dans chaque case du tableau, les valeurs possibles sont [0,1], [1,0], [0,0]
-
 
 

@@ -1,4 +1,7 @@
 # simple_game.py
+
+# type: ignore[reportMissingImports]
+import print_board as pb
 from pettingzoo.classic import connect_four_v3
 
 env = connect_four_v3.env(render_mode="human") # ou render_mode="rdb_array" ou bien None
@@ -8,8 +11,7 @@ for agent in env.agent_iter():
     observation, reward, termination, truncation, info = env.last()
 
     print(f"\nAgent: {agent}")
-    print_board(observation["observation"])
-
+    pb.print_board(observation["observation"])
 
     if termination or truncation:
         action = None
@@ -24,12 +26,6 @@ for agent in env.agent_iter():
         print(f"{agent} plays column {action}")
     
     env.step(action)
-    
-#for agent in env.agent_iter():
-    #observation, reward, termination, truncation, info = env.last()
-
-
-    #env.step(action)
 
 input("Press Enter to close...")
 env.close()

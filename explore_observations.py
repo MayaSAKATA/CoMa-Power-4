@@ -1,3 +1,5 @@
+# type: ignore[reportMissingImports]
+
 from pettingzoo.classic import connect_four_v3
 import numpy as np
 
@@ -23,5 +25,3 @@ for agent in env.agent_iter():
     break
 
 env.close()
-
-

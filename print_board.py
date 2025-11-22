@@ -1,3 +1,7 @@
+# print_board.py
+
+# type: ignore[reportMissingImports]
+
 from pettingzoo.classic import connect_four_v3
 import numpy as np
 
@@ -22,12 +26,6 @@ def print_board(observation):
                 ligne += ". "
         print (ligne)
     print ("0 1 2 3 4 5 6")
-
-
-    # TODO: Implement this function
-    # Hint: Loop through rows and columns
-    # Use symbols like 'X', 'O', and '.' for current player, opponent, and empty
-    pass
 
 # Test your function
 env = connect_four_v3.env()
