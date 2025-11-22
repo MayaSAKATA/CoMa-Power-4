@@ -93,7 +93,7 @@ fonction win_game (player,board,row,col,drow,dcol):
 5. Quelle est la structure de l'observation retournée ? observation (dict), reward (float), termination (bool), truncation (bool), info = env.last() (dict)
 6. Qu'est-ce qu'un "action mask" et pourquoi est-il important ? Tableau de taille 7 (puisque 7 colonnes) avec des 1 là où le joueur a le droit de jouer (0 signifie colonne pleine) -> important car permet de filtrer les actions interdites
 
-### Tache 2.2
+### Tâche 2.2
 
 1. Quelle est la forme du tableau d'observation ?
 Le tableau est de la forme (6,7,2).
@@ -103,5 +103,3 @@ le vecteur de taille 7 représente le nombre de colonnes
 le vecteur de taille 2 sert à indiquer si la case est remplie et par quel joueur
 3. Quelles sont les valeurs possibles dans le tableau d'observation ?
 dans chaque case du tableau, les valeurs possibles sont [0,1], [1,0], [0,0]
-
-
