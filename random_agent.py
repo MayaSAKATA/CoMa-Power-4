@@ -1,19 +1,15 @@
 """
 My Random Agent for Connect Four
-
 This agent chooses moves randomly from the available (valid) columns.
 """
 
 import random
-
-
 class RandomAgent:
     """
     A simple agent that plays randomly
     """
 
     def __init__(self, env, player_name=None):
-
         """
         Initialize the random agent
 
@@ -41,14 +37,24 @@ class RandomAgent:
             info: dict - additional info
             action_mask: numpy array (7,) - which columns are valid (1) or full (0)
 
+
         Returns:
             action: int (0-6) - which column to play
         """
-        # TODO: Implement random action selection
-        action_space = self.env.action_space(self.env.agent_selection)
-        
-        action = action_space.sample(action_mask)
 
+        # TODO: Implement random action selection
+        if terminated or truncated: # check if game is over
+            return None
+        
+        # get action mask safely
+        # mask = observation["action_mask"]
+        mask = action_mask
+        agent = self.env.agent_selection
+        action = self.env.action_space(agent).sample(mask) # sample a random action
+
+        #action_space = self.env.action_space(self.env.agent_selection)
+        
+        #action = action_space.sample(action_mask) 
         return action
 
 
@@ -58,6 +64,9 @@ def choose_action_manual(self, observation, reward=0.0, terminated=False, trunca
 
     This is a learning exercise to understand what action_mask does
     """
+    if terminated or truncated: # check if game is over
+        return None
+    
     # TODO: Get list of valid actions from action_mask
     valid_actions = []  # Fill this list
     n=len(action_mask)
