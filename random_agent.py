@@ -46,15 +46,10 @@ class RandomAgent:
         if terminated or truncated: # check if game is over
             return None
         
-        # get action mask safely
-        # mask = observation["action_mask"]
-        mask = action_mask
         agent = self.env.agent_selection
-        action = self.env.action_space(agent).sample(mask) # sample a random action
+        action = self.env.action_space(agent).sample(action_mask) # sample a random action
+        #print(f"{agent} plays column {action}")
 
-        #action_space = self.env.action_space(self.env.agent_selection)
-        
-        #action = action_space.sample(action_mask) 
         return action
 
 
