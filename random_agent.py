@@ -45,18 +45,31 @@ class RandomAgent:
             action: int (0-6) - which column to play
         """
         # TODO: Implement random action selection
-         
-        if action_mask == None : 
-            valid_action = [0, 1, 2, 3, 4, 5, 6]
-
-        else : 
-            n = len(action_mask)
-            valid_action = []
-            for i in range (n) :
-                if action_mask[i] == 1 :
-                    valid_action.append(i) 
+        action_space = self.env.action_space(self.env.agent_selection)
         
-        action = random.choice(valid_action)
+        action = action_space.sample(action_mask)
 
         return action
+
+
+def choose_action_manual(self, observation, reward=0.0, terminated=False, truncated=False, info=None, action_mask=None):
+    """
+    Choose a random valid action without using .sample()
+
+    This is a learning exercise to understand what action_mask does
+    """
+    # TODO: Get list of valid actions from action_mask
+    valid_actions = []  # Fill this list
+    n=len(action_mask)
+    for i in range (n): 
+        if action_mask[i] == 1 : 
+            valid_actions.append(i)
+
+    # TODO: If no valid actions, return None (shouldn't happen in Connect Four)
+    if not valid_actions:
+        return None
+
+    # TODO: Choose randomly from valid actions
+    action = random.choice(valid_actions)
+    return action # Replace with random choice
                 
