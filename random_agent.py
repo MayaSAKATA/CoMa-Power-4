@@ -13,6 +13,7 @@ class RandomAgent:
     """
 
     def __init__(self, env, player_name=None):
+        
         """
         Initialize the random agent
 
