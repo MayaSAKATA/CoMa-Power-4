@@ -2,6 +2,7 @@
 # type: ignore[reportMissingImports]
 
 from pettingzoo.classic import connect_four_v3
+import numpy as np
 import random_agent as ra
 
 def play_game():
@@ -42,21 +43,30 @@ def play_game():
     env.close()
     print(f"Game finished in {count} steps.")
 
-    return outcome
+    return outcome, count
 
 def play_multiple_games(num_games=10):
     """
     Play multiple games to test RandomAgent
     """
-    results = {"player_0": 0, "player_1": 0, "draws": 0}
+    actions = []
+    results = {"player_0": 0, "player_1": 0, "draw": 0}
+
     print(f"\nLet's start the game in {num_games} rounds")
+
     for i in range(num_games):
         print(f"\nStarting game {i+1}")
-        outcome = play_game()
+        outcome, count = play_game()
         results[outcome] += 1
+        actions.append(count)
         print(f"Game {i+1} results: {results}")
-
-    return results
+    return results, actions
 
 ### Test the RandomAgent by playing multiple games ##
-play_multiple_games(2)
+results, actions = play_multiple_games(100)
+
+print(f"Game results: {results}")
+average = np.mean(actions)
+min = np.min(actions)
+max = np.max(actions)
+print(f"Average action : {average}, minimum actions : {min}, maximum actions : {max}")
