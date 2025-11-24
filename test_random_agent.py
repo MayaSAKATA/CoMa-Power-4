@@ -15,7 +15,7 @@ def play_game():
     env.reset(seed=42)
 
     count = 0 # counts number of steps
-    agents = {} # create a random agents
+    agents = {} # random agents
     outcome = None # outcome of the game : which player won or draw
 
     for agent_name in env.agents: # initialize RandomAgents
@@ -28,10 +28,10 @@ def play_game():
             action = None
             if reward == 1:
                 outcome = agent
-                #print(f"{agent} wins!")
+                print(f"{agent} wins!")
             elif reward == 0:
                 outcome = "draw"
-                #print("It's a draw!")
+                print("It's a draw!")
         else:
             # Take a random valid action
             a = agents[agent]
@@ -48,8 +48,10 @@ def play_game():
 def play_multiple_games(num_games=10):
     """
     Play multiple games to test RandomAgent
+    
+    Returns : the result of the game
     """
-    actions = []
+    actions = [] # list to store number of actions per game
     results = {"player_0": 0, "player_1": 0, "draw": 0}
 
     print(f"\nLet's start the game in {num_games} rounds")
