@@ -53,27 +53,27 @@ class RandomAgent:
         return action
 
 
-def choose_action_manual(self, observation, reward=0.0, terminated=False, truncated=False, info=None, action_mask=None):
-    """
-    Choose a random valid action without using .sample()
+    def choose_action_manual(self, observation, reward=0.0, terminated=False, truncated=False, info=None, action_mask=None):
+        """
+        Choose a random valid action without using .sample()
 
-    This is a learning exercise to understand what action_mask does
-    """
-    if terminated or truncated: # check if game is over
-        return None
-    
-    # TODO: Get list of valid actions from action_mask
-    valid_actions = []  # Fill this list
-    n=len(action_mask)
-    for i in range (n): 
-        if action_mask[i] == 1 : 
-            valid_actions.append(i)
+        This is a learning exercise to understand what action_mask does
+        """
+        if terminated or truncated: # check if game is over
+            return None
+        
+        # TODO: Get list of valid actions from action_mask
+        valid_actions = []  # Fill this list
+        n=len(action_mask)
+        for i in range (n): 
+            if action_mask[i] == 1 : 
+                valid_actions.append(i)
 
-    # TODO: If no valid actions, return None (shouldn't happen in Connect Four)
-    if not valid_actions:
-        return None
+        # TODO: If no valid actions, return None (shouldn't happen in Connect Four)
+        if not valid_actions:
+            return None
 
-    # TODO: Choose randomly from valid actions
-    action = random.choice(valid_actions)
-    return action # Replace with random choice
-                
+        # TODO: Choose randomly from valid actions
+        action = random.choice(valid_actions)
+        return action # Replace with random choice
+                    
