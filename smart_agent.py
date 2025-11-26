@@ -66,14 +66,7 @@ class SmartAgent:
         """
         # TODO: Implement this
 
-        n = len(action_mask)
-        valid_actions=[]
-
-        for i in range (n) :
-            if action_mask[i] == 1 : 
-                valid_actions.append(i)
-
-        return valid_actions
+        return [i for i, val in enumerate(action_mask) if val == 1]
 
     def _find_winning_move(self, observation, valid_actions, channel):
         """
@@ -105,7 +98,12 @@ class SmartAgent:
         # TODO: Implement this
         # Hint: Start from bottom row (5) and go up
         # A position is empty if board[row, col, 0] == 0 and board[row, col, 1] == 0
-        pass
+
+        for row in range(5, -1, -1):  # Start from bottom (row 5)
+            if board[row, col, 0] == 0 and board[row, col, 1] == 0:
+                return row  # This position is empty
+        return None  # Column is full
+
 
     def _check_win_from_position(self, board, row, col, channel):
         """
