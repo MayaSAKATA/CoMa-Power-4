@@ -1,19 +1,15 @@
 """
 My Random Agent for Connect Four
-
 This agent chooses moves randomly from the available (valid) columns.
 """
 
 import random
-
-
 class RandomAgent:
     """
     A simple agent that plays randomly
     """
 
     def __init__(self, env, player_name=None):
-        
         """
         Initialize the random agent
 
@@ -41,23 +37,43 @@ class RandomAgent:
             info: dict - additional info
             action_mask: numpy array (7,) - which columns are valid (1) or full (0)
 
+
         Returns:
             action: int (0-6) - which column to play
         """
+
         # TODO: Implement random action selection
-
-        # si action_mask = None, c'est comme si aucune colonne etait pleine 
-        if action_mask == None : 
-            valid_action = [0, 1, 2, 3, 4, 5, 6]
-
-        else : 
-            n = len(action_mask)
-            valid_action = []
-            for i in range (n) :
-                if action_mask[i] == 1 :
-                    valid_action.append(i) 
+        if terminated or truncated: # check if game is over
+            return None
         
-        action = random.choice(valid_action)
+        agent = self.env.agent_selection
+        action = self.env.action_space(agent).sample(action_mask) # sample a random action
+        #print(f"{agent} plays column {action}")
 
         return action
+
+
+def choose_action_manual(self, observation, reward=0.0, terminated=False, truncated=False, info=None, action_mask=None):
+    """
+    Choose a random valid action without using .sample()
+
+    This is a learning exercise to understand what action_mask does
+    """
+    if terminated or truncated: # check if game is over
+        return None
+    
+    # TODO: Get list of valid actions from action_mask
+    valid_actions = []  # Fill this list
+    n=len(action_mask)
+    for i in range (n): 
+        if action_mask[i] == 1 : 
+            valid_actions.append(i)
+
+    # TODO: If no valid actions, return None (shouldn't happen in Connect Four)
+    if not valid_actions:
+        return None
+
+    # TODO: Choose randomly from valid actions
+    action = random.choice(valid_actions)
+    return action # Replace with random choice
                 
