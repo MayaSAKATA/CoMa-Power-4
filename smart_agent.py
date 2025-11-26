@@ -84,7 +84,7 @@ class SmartAgent:
         # Hint: Simulate placing the piece, then check for wins
         for col in valid_actions:
             next_row = self._get_next_row(observation, col)
-            if next_row is None:
+            if next_row is not None:
                 if self._check_win_from_position(observation, next_row, col, channel):
                     return col
         return None
@@ -126,16 +126,28 @@ class SmartAgent:
         # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
         # Hint: Count consecutive pieces in both directions from (row, col)
 
+        board[row, col, channel] == 1 # place the piece at (row, col)
+
         direction = [(0, 1), (1, 0), (1, -1), (1, 1)]
         for dr, dc in direction:
-            count = 1
-            for i in range(1, 4):
-                r = dr * i
-                c = dc * i
-                if 0 <= r + row < 6 and 0 <= c + col < 7 and board[r + row, c + col, channel]==1: # Check board bounds and if pieces are ours
+            count = 1 # counts pieces in a row, start at 1 -> placement at (row,col)
+            for i in range(1, 4): # forward
+                r = row + dr * i
+                c = col + dc * i
+                if 0 <= r < 6 and 0 <= c  < 7 and board[r, c, channel]==1: # Check board bounds and if pieces are ours
                     count += 1
                 else :
                     break
+            for i in range(1, 4): # backward
+                r = row - dr * i
+                c = col - dc * i
+                if 0 <= r < 6 and 0 <= c  < 7 and board[r, c, channel]==1: # Check board bounds and if pieces are ours
+                    count += 1
+                else :
+                    break
+            
             if count >= 4: # Found at least 4 in a row
                 return True
+            
+        board[row, col, channel] == 0 # undo placement piece at (row, col)
         return False
