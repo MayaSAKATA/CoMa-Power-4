@@ -66,7 +66,17 @@ class SmartAgent:
         """
         # TODO: Implement this
 
-        return [i for i, val in enumerate(action_mask) if val == 1]
+        n = len(action_mask)
+        valid_actions=[]
+
+        if not action_mask :
+            return None
+
+        for i in range (n) :
+            if action_mask[i] == 1 : 
+                valid_actions.append(i)
+
+        return valid_actions
 
     def _find_winning_move(self, observation, valid_actions, channel):
         """
