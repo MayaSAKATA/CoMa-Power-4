@@ -120,4 +120,17 @@ class SmartAgent:
         """
         # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
         # Hint: Count consecutive pieces in both directions from (row, col)
-        pass
+
+        direction = [(0, 1), (1, 0), (1, -1), (1, 1)]
+        for dr, dc in direction:
+            count = 1
+            for i in range(1, 4):
+                r = dr * i
+                c = dc * i
+                if 0 <= r + row < 6 and 0 <= c + col < 7 and board[r + row, c + col, channel]==1: # Check board bounds and if pieces are ours
+                    count += 1
+                else :
+                    break
+            if count >= 4: # Found at least 4 in a row
+                return True
+        return False
