@@ -126,7 +126,7 @@ class SmartAgent:
         # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
         # Hint: Count consecutive pieces in both directions from (row, col)
 
-        board[row, col, channel] == 1 # place the piece at (row, col)
+        board[row, col, channel] = 1 # place the piece at (row, col)
 
         direction = [(0, 1), (1, 0), (1, -1), (1, 1)]
         for dr, dc in direction:
@@ -149,5 +149,5 @@ class SmartAgent:
             if count >= 4: # Found at least 4 in a row
                 return True
             
-        board[row, col, channel] == 0 # undo placement piece at (row, col)
+        board[row, col, channel] = 0 # undo placement piece at (row, col)
         return False
