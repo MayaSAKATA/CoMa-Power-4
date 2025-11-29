@@ -3,7 +3,7 @@
 
 from pettingzoo.classic import connect_four_v3
 import numpy as np
-import random_agent as ra
+import src.random_agent as ra
 
 def play_game():
     """
