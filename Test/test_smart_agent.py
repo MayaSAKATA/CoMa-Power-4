@@ -150,7 +150,7 @@ class SmartAgent:
         # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
         # Hint: Count consecutive pieces in both directions from (row, col)
 
-        board[row, col, channel] == 1 # place the piece at (row, col)
+        board[row, col, channel] = 1 # place the piece at (row, col)
 
         direction = [(0, 1), (1, 0), (1, -1), (1, 1)]
         for dr, dc in direction:
@@ -173,24 +173,26 @@ class SmartAgent:
             if count >= 4: # Found at least 4 in a row
                 return True
             
-        board[row, col, channel] == 0 # undo placement piece at (row, col)
+        board[row, col, channel] = 0 # undo placement piece at (row, col)
         return False
 
 
 class TestSmartAgent(unittest.TestCase):
     def setUp(self):
         """
-        Initialise l'agent en lui fournissant l'environnement factice requis.
+        Initializes the agent by providing it with the required dummy environment.
         """
 
         mock_env = MockEnvironment()
-        
-
+    
         self.agent = SmartAgent(mock_env)
+        
 
     def test_get_valid_actions(self):
         """ 
-        test de la methode _get_valid_actions 
+        Method test _get_valid_actions 
+
+        Test when all columns are valid and when only odd columns are valid 
         """
         agent = self.agent
         mask = [1, 1, 1, 1, 1, 1, 1]  # All columns valid
@@ -201,8 +203,11 @@ class TestSmartAgent(unittest.TestCase):
 
     def test_get_next_row(self): 
         """
-        test de la methode _get_nest_row 
+        Method test _get_nest_row 
+        
+        Test in case of empty board and of column with one piece 
         """
+
         agent = self.agent
         # Empty board - piece goes to bottom
         board = np.zeros((6, 7, 2))
@@ -215,45 +220,165 @@ class TestSmartAgent(unittest.TestCase):
     def test_find_winning_move(self):
 
         """
-        test de la methode _find_winning_move
+        Method test _find_winning_move
+
+        Test in case of victory in column and in increase diagonal 
+        and in case of block opponent from victory in row and decrease diagonal
         """
 
 
         agent = self.agent
         valid_actions = [0, 1, 2, 3, 4, 5, 6]
 
-        #cas 1: Victoire sur une colonne, ici la deuxième colonne du plateau :
+        #case 1 : win on a column (here is the first column)
 
-        vertical=np.zeros((6,7,2),dtype=int) #création d'un plateau vide
-        #on place 3 pièces sur la colonne 1 
+        vertical=np.zeros((6,7,2),dtype=int) #create an empty board
+        #place 3 pieces on column 1 for the current agent 
         vertical[5,0,0] = 1
-        vertical[4,0,0] =1 
-        vertical[3,0,0] =1
+        vertical[4,0,0] = 1 
+        vertical[3,0,0] = 1
 
 
         winning_move = agent._find_winning_move(vertical, valid_actions, channel=0)
         self.assertEqual(winning_move, 0)
 
-
-        #cas 2: blocage de l'adversaire sur une ligne 
+        #case 2 : Block opponent from winning, on a row 
 
         horizontal=np.zeros((6,7,2),dtype=int)
-        #on place 3 pieces de l'adversaire sur la ligne 5
+        #place 3 pieces on row 5, for opponent player
         horizontal[5,3,1]=1
         horizontal[5,4,1] =1
         horizontal[5,5,1]=1
+
         horizontal[5,2,0]=1
 
         blocking_move = agent._find_winning_move(horizontal, valid_actions, channel=1)
         self.assertEqual(blocking_move, 6)
 
+        #case 3 : victory in an increasing diagonal
 
-        #manque le test pour les deux diagonales et pour le cas ou il n'y a pas de move gagnant
+        indiag = np.zeros((6,7,2),dtype=int)
+        #set pieces for current player
+        indiag[5,0,0]=1
+        indiag[4,1,0]=1
+        indiag[3,2,0]=1
+        indiag[4,3,0]=1
 
+        #set pieces for opponent player 
+        indiag[5,1,1] = 1
+        indiag[5,2,1] = 1
+        indiag[5,3,1] = 1
+        indiag[4,2,1] = 1
+        indiag[3,3,1] = 1
+
+
+        winning_move = agent._find_winning_move(indiag, valid_actions, channel=0)
+        self.assertEqual(winning_move, 3)
+
+        #case 4: block opponent from winning on a decreasing diagonal
+
+        dediag = np.zeros((6,7,2),dtype=int)
+
+        dediag[5,0,0] = 1
+        dediag[5,2,0] = 1
+        dediag[3,0,0] = 1
+        dediag[4,0,0] = 1
+
+        dediag[5,1,1] = 1
+        dediag[4,0,1] = 1
+        dediag[2,0,1] = 1
+        dediag[3,1,1] = 1
+        dediag[4,2,1] = 1
+
+        blocking_move = agent._find_winning_move(dediag, valid_actions, channel=1)
+        self.assertEqual(blocking_move, 3)
 
     
-    def test_win_from_position(self):
-        pass
+    def test_check_win_from_position(self):
+
+
+        """
+        Method test _check_win_from_position
+
+        Test in case of victory in row, column, increase and decrease diagonal, 
+        in case of no victory and blockage by the opponent 
+        """
+
+        agent = self.agent
+        valid_actions = [0, 1, 2, 3, 4, 5, 6]
+        
+        #case 1: win in row 
+
+        board = np.zeros((6,7,2), dtype = int)
+
+        board[5,0,0] = 1
+        board[5,1,0] = 1
+        board[5,3,0] = 1
+
+        row=5
+        col=2
+        self.assertTrue(agent._check_win_from_position(board, row, col, channel =0))  
+
+        #case 2: win in column 
+
+        board = np.zeros((6,7,2), dtype=int)
+
+        board[5,0,0] = 1 
+        board[4,0,0] = 1 
+        board[3,0,0] = 1 
+
+        row = 2
+        col = 0
+        self.assertTrue(agent._check_win_from_position(board, row, col, channel =0))
+
+        #case 3 : win in an increase diagonal 
+
+        board = np.zeros((6,7,2), dtype=int)
+
+        board[2,3,0] = 1 
+        board[3,2,0] = 1 
+        board[4,1,0] = 1 
+
+        row = 5
+        col = 0
+        self.assertTrue(agent._check_win_from_position(board, row, col, channel =0))
+
+
+        #case 4 : win in an decrease diagonal 
+
+        board = np.zeros((6,7,2), dtype=int)
+
+        board[2,0,0] = 1 
+        board[5,3,0] = 1 
+        board[4,2,0] = 1 
+
+        row = 3
+        col = 1
+        self.assertTrue(agent._check_win_from_position(board, row, col, channel =0))
+
+        #case 5 : no win 
+
+        board = np.zeros((6,7,2), dtype=int)
+
+        board[2,0,0] = 1 
+        board[5,3,0] = 1 
+        board[4,2,0] = 1 
+
+        row = 5
+        col = 4 
+        self.assertFalse(agent._check_win_from_position(board, row, col, channel =0))
+
+        #case 6 : block by the opponent 
+
+        board = np.zeros((6,7,2), dtype=int)
+
+        board[5,0,0] = 1
+        board[5,1,1] = 1
+        board[5,2,0] = 1
+
+        row = 5 
+        col = 3 
+        self.assertFalse(agent._check_win_from_position(board, row, col, channel =0))
 
 
 
