@@ -7,6 +7,9 @@ This agent uses rule-based heuristics to play strategically.
 """
 
 import random
+import numpy as np 
+
+
 
 class SmartAgent:
     """
@@ -36,17 +39,16 @@ class SmartAgent:
         4. Random valid move
         """
 
-        board_state = observation["observation"]
         # Get valid actions
         valid_actions = self._get_valid_actions(action_mask)
 
         # Rule 1: Try to win
-        winning_move = self._find_winning_move(board_state, valid_actions, channel=0)
+        winning_move = self._find_winning_move(observation, valid_actions, channel=0)
         if winning_move is not None:
             return winning_move
 
         # Rule 2: Block opponent
-        blocking_move = self._find_winning_move(board_state, valid_actions, channel=1)
+        blocking_move = self._find_winning_move(observation, valid_actions, channel=1)
         if blocking_move is not None:
             return blocking_move
 
@@ -71,7 +73,7 @@ class SmartAgent:
 
         return [i for i, valid in enumerate(action_mask) if valid == 1]
 
-    def _find_winning_move(self, board, valid_actions, channel):
+    def _find_winning_move(self, observation, valid_actions, channel):
         """
         Find a move that creates 4 in a row for the specified player
 
@@ -86,9 +88,9 @@ class SmartAgent:
         # TODO: For each valid action, check if it would create 4 in a row
         # Hint: Simulate placing the piece, then check for wins
         for col in valid_actions:
-            next_row = self._get_next_row(board, col)
+            next_row = self._get_next_row(observation, col)
             if next_row is not None:
-                if self._check_win_from_position(board, next_row, col, channel):
+                if self._check_win_from_position(observation, next_row, col, channel):
                     return col
         return None
 
@@ -106,11 +108,6 @@ class SmartAgent:
         # TODO: Implement this
         # Hint: Start from bottom row (5) and go up
         # A position is empty if board[row, col, 0] == 0 and board[row, col, 1] == 0
-
-        if isinstance(board,dict):
-            board_array = board["observation"]
-        else : 
-            board_array = board
 
         for row in range(5, -1, -1):  # Start from bottom (row 5)
             if board[row, col, 0] == 0 and board[row, col, 1] == 0:
