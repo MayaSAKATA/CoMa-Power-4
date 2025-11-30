@@ -35,16 +35,18 @@ class SmartAgent:
         3. Play center if available
         4. Random valid move
         """
+
+        board_state = observation["observation"]
         # Get valid actions
         valid_actions = self._get_valid_actions(action_mask)
 
         # Rule 1: Try to win
-        winning_move = self._find_winning_move(observation, valid_actions, channel=0)
+        winning_move = self._find_winning_move(board_state, valid_actions, channel=0)
         if winning_move is not None:
             return winning_move
 
         # Rule 2: Block opponent
-        blocking_move = self._find_winning_move(observation, valid_actions, channel=1)
+        blocking_move = self._find_winning_move(board_state, valid_actions, channel=1)
         if blocking_move is not None:
             return blocking_move
 
@@ -69,7 +71,7 @@ class SmartAgent:
 
         return [i for i, valid in enumerate(action_mask) if valid == 1]
 
-    def _find_winning_move(self, observation, valid_actions, channel):
+    def _find_winning_move(self, board, valid_actions, channel):
         """
         Find a move that creates 4 in a row for the specified player
 
@@ -84,9 +86,9 @@ class SmartAgent:
         # TODO: For each valid action, check if it would create 4 in a row
         # Hint: Simulate placing the piece, then check for wins
         for col in valid_actions:
-            next_row = self._get_next_row(observation, col)
+            next_row = self._get_next_row(board, col)
             if next_row is not None:
-                if self._check_win_from_position(observation, next_row, col, channel):
+                if self._check_win_from_position(board, next_row, col, channel):
                     return col
         return None
 
@@ -104,6 +106,11 @@ class SmartAgent:
         # TODO: Implement this
         # Hint: Start from bottom row (5) and go up
         # A position is empty if board[row, col, 0] == 0 and board[row, col, 1] == 0
+
+        if isinstance(board,dict):
+            board_array = board["observation"]
+        else : 
+            board_array = board
 
         for row in range(5, -1, -1):  # Start from bottom (row 5)
             if board[row, col, 0] == 0 and board[row, col, 1] == 0:
@@ -127,7 +134,9 @@ class SmartAgent:
         # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
         # Hint: Count consecutive pieces in both directions from (row, col)
 
-        board[row, col, channel] = 1 # place the piece at (row, col)
+        temp_board = board.copy() #create a copy of the board
+
+        temp_board[row, col, channel] = 1 # place the piece at (row, col)
 
         direction = [(0, 1), (1, 0), (1, -1), (1, 1)]
         for dr, dc in direction:
@@ -135,14 +144,14 @@ class SmartAgent:
             for i in range(1, 4): # forward
                 r = row + dr * i
                 c = col + dc * i
-                if 0 <= r < 6 and 0 <= c  < 7 and board[r, c, channel]==1: # Check board bounds and if pieces are ours
+                if 0 <= r < 6 and 0 <= c  < 7 and temp_board[r, c, channel]==1: # Check board bounds and if pieces are ours
                     count += 1
                 else :
                     break
             for i in range(1, 4): # backward
                 r = row - dr * i
                 c = col - dc * i
-                if 0 <= r < 6 and 0 <= c  < 7 and board[r, c, channel]==1: # Check board bounds and if pieces are ours
+                if 0 <= r < 6 and 0 <= c  < 7 and temp_board[r, c, channel]==1: # Check board bounds and if pieces are ours
                     count += 1
                 else :
                     break
@@ -150,5 +159,5 @@ class SmartAgent:
             if count >= 4: # Found at least 4 in a row
                 return True
             
-        board[row, col, channel] = 0 # undo placement piece at (row, col)
+
         return False
