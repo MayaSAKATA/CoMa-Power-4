@@ -32,6 +32,7 @@ def play_game_rvs(player_0=False):
     for agent in env.agent_iter():
         observation, reward, termination, truncation, info = env.last()
 
+
         if termination or truncation:
             action = None
             if reward == 1:
@@ -42,7 +43,7 @@ def play_game_rvs(player_0=False):
                 print("It's a draw!")
         else:
             a = agents[agent]
-            action = a.choose_action(observation, reward, termination, truncation, info, observation["action_mask"])
+            action = a.choose_action(observation["observation"], reward, termination, truncation, info, observation["action_mask"])
 
         env.step(action)
         count += 1
