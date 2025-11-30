@@ -37,10 +37,10 @@ def play_game_rvs(player_0=False):
             action = None
             if reward == 1:
                 outcome = agent
-                print(f"{agent} wins!")
+                #print(f"{agent} wins!")
             elif reward == 0:
                 outcome = "draw"
-                print("It's a draw!")
+                #print("It's a draw!")
         else:
             a = agents[agent]
             action = a.choose_action(observation["observation"], reward, termination, truncation, info, observation["action_mask"])
@@ -49,7 +49,7 @@ def play_game_rvs(player_0=False):
         count += 1
 
     env.close()
-    print(f"Game finished in {count} steps.")
+    #print(f"Game finished in {count} steps.")
 
     smart_agent_name = "player_0" if player_0 else "player_1"
 
@@ -77,7 +77,6 @@ def play_multiple_games(num_games=10):
 
         outcome, count, smart_agent_name = play_game_rvs(player_0)
 
-
         if outcome == "draw" : 
             results["draw"] +=1
         elif outcome == smart_agent_name:
@@ -86,7 +85,7 @@ def play_multiple_games(num_games=10):
             results["random_win"] +=1
 
         actions.append(count)
-        print(f"Game {i+1} results: {results}")
+        #print(f"Game {i+1} results: {results}")
 
     return results, actions
 
