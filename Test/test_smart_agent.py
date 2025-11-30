@@ -1,36 +1,26 @@
 # test_smart_agent.py
 
-
 import unittest
 import numpy as np
 import random
-
-
-
-
 class MockActionSpace:
-    """Simule l'action_space nécessaire pour l'initialisation de SmartAgent."""
+    """ 
+    Simulate action_sace needed for SmartAgent initialization.
+    """
     def __init__(self):
-        # Un objet simple suffit si SmartAgent ne fait qu'appeler action_space()
         pass 
 
 class MockEnvironment:
-    """Simule l'environnement PettingZoo requis par SmartAgent.__init__."""
-    
-    # Doit contenir 'agents' pour que self.env.agents[0] ne lève pas d'erreur
+    """
+    Simulate l'environnement PettingZoo requis par SmartAgent.__init__.
+    """    
     agents = ["player_0", "player_1"]
     
-    # Doit contenir 'action_space' pour que self.env.action_space() ne lève pas d'erreur
     def action_space(self, agent_name):
         return MockActionSpace()
 
 
-
-
-# Classe SmartAgent à tester : 
-
-
-
+# SmartAgent Class to test : 
 class SmartAgent:
     """
     A rule-based agent that plays strategically
@@ -88,7 +78,6 @@ class SmartAgent:
         Returns:
             list of valid column indices
         """
-        # TODO: Implement this
 
         return [i for i, valid in enumerate(action_mask) if valid == 1]
 
@@ -104,8 +93,7 @@ class SmartAgent:
         Returns:
             column index (int) if winning move found, None otherwise
         """
-        # TODO: For each valid action, check if it would create 4 in a row
-        # Hint: Simulate placing the piece, then check for wins
+
         for col in valid_actions:
             next_row = self._get_next_row(observation, col)
             if next_row is not None:
@@ -124,9 +112,6 @@ class SmartAgent:
         Returns:
             row index (0-5) if space available, None if column full
         """
-        # TODO: Implement this
-        # Hint: Start from bottom row (5) and go up
-        # A position is empty if board[row, col, 0] == 0 and board[row, col, 1] == 0
 
         for row in range(5, -1, -1):  # Start from bottom (row 5)
             if board[row, col, 0] == 0 and board[row, col, 1] == 0:
@@ -147,8 +132,6 @@ class SmartAgent:
         Returns:
             True if this position creates 4 in a row/col/diag, False otherwise
         """
-        # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
-        # Hint: Count consecutive pieces in both directions from (row, col)
 
         board[row, col, channel] = 1 # place the piece at (row, col)
 
@@ -175,7 +158,6 @@ class SmartAgent:
             
         board[row, col, channel] = 0 # undo placement piece at (row, col)
         return False
-
 
 class TestSmartAgent(unittest.TestCase):
     def setUp(self):
@@ -225,7 +207,6 @@ class TestSmartAgent(unittest.TestCase):
         Test in case of victory in column and in increase diagonal 
         and in case of block opponent from victory in row and decrease diagonal
         """
-
 
         agent = self.agent
         valid_actions = [0, 1, 2, 3, 4, 5, 6]
@@ -295,7 +276,6 @@ class TestSmartAgent(unittest.TestCase):
 
     
     def test_check_win_from_position(self):
-
 
         """
         Method test _check_win_from_position
@@ -379,8 +359,6 @@ class TestSmartAgent(unittest.TestCase):
         row = 5 
         col = 3 
         self.assertFalse(agent._check_win_from_position(board, row, col, channel =0))
-
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,3 +1,5 @@
+# smart_agent.py
+
 """
 My Smart Agent for Connect Four
 
@@ -5,7 +7,6 @@ This agent uses rule-based heuristics to play strategically.
 """
 
 import random
-
 
 class SmartAgent:
     """
