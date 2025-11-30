@@ -88,12 +88,11 @@ class SmartAgent:
         # TODO: For each valid action, check if it would create 4 in a row
         # Hint: Simulate placing the piece, then check for wins
 
-        board_array = observation["observation"]
         for col in valid_actions:
-            next_row = self._get_next_row(board_array, col)
+            next_row = self._get_next_row(observation, col)
             if next_row is not None:
 
-                if self._check_win_from_position(board_array, next_row, col, channel):
+                if self._check_win_from_position(observation, next_row, col, channel):
                     return col
         return None
 
