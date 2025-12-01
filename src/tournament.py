@@ -93,9 +93,9 @@ def run_tournament(n_games=100):
         else:
             result = play_single_game(env, random_agent, smart_agent)
             if result == 1:
-                results["losses"] += 1  # player_0 (random) a gagné
+                results["losses"] += 1
             elif result == -1:
-                results["wins"] += 1    # player_1 (smart) a gagné
+                results["wins"] += 1
             else:
                 results["draws"] += 1
         
@@ -108,4 +108,4 @@ def run_tournament(n_games=100):
     return results
 
 if __name__ == "__main__":
-    run_tournament(100)
+    run_tournament(1000)
