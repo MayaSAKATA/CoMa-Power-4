@@ -95,17 +95,17 @@ class TestConnectFour(unittest.TestCase):
         
         obs = np.zeros((6, 7, 2), dtype=np.int8) # create an empty board
                 
-        obs[5, 0, 0] = 1 # place player 1 pieces
-        obs[5, 1, 0]= 1
-        obs[5, 2, 0]= 1
+        obs[5, 0, 0] = 1 # place player 0 pieces
+        obs[4, 0, 0] = 1
+        obs[3, 0, 0] = 1
 
-        obs[5, 0, 1] = 1 # place opponent's pieces
-        obs[5, 1, 1]= 1
-        obs[5, 2, 1]= 1
+        obs[5, 1, 1] = 1 # place opponent's pieces
+        obs[4, 1, 1]= 1
+        obs[3, 1, 1]= 1
 
         mask = np.ones(7, dtype=np.int8) # all actions valid
         action = self.agent.choose_action(obs, action_mask=mask)
-        self.assertEqual(action, 3, "Agent should play col 3 to block opponent")
+        self.assertEqual(action, 0, "Agent should play col 0 to block opponent")
 
 class TestPerformanceAndTournament(unittest.TestCase):
     def setUp(self):
@@ -117,34 +117,37 @@ class TestPerformanceAndTournament(unittest.TestCase):
         self.smart_agent = SmartAgent(self.env)
         self.random_agent = RandomAgent(self.env)
 
-    def test_performance_time(self):
+    def test_speed(self):
         """
         Test the performance of the SmartAgent in terms of execution time.
         """
 
         self.env.reset()
-        obs, _, _, _, _ = self.env.last()
-        mask = np.array([1, 1, 1, 1, 1, 1, 1], dtype=np.int8)
-        
+        observation, _, _, _, _ = self.env.last()
+        obs = observation["observation"]
+        mask = observation["action_mask"]
+
         start_time = time.time()
-        for _ in range(100):
-            self.smart_agent.choose_action(obs["observation"], action_mask=mask)
-        end_time = time.time()
+        iter = 100
+        for _ in range(iter):
+            self.smart_agent.choose_action(obs, action_mask=mask)
         
+        end_time = time.time()
         avg_time = (end_time - start_time) / 100
+        
         print(f"  Average action time : {avg_time:.6f} seconds")
         self.assertLess(avg_time, 3, "The agent is too slow (> 3s per action)")
         
-    def test_performance_memory(self):
+    def test_memory(self):
             """
             Test the performance of the SmartAgent in terms of memory.
             """
             self.env.reset()
-            obs, _, _, _, _ = self.env.last()
-            mask = np.array([1, 1, 1, 1, 1, 1, 1], dtype=np.int8)
-            
+            observation, _, _, _, _ = self.env.last()
+            obs = observation["observation"]
+            mask = observation["action_mask"]            
             tracemalloc.start()
-            self.smart_agent.choose_action(obs["observation"], action_mask=mask)
+            self.smart_agent.choose_action(obs, action_mask=mask)
             _, peak = tracemalloc.get_traced_memory()
             tracemalloc.stop()
 
