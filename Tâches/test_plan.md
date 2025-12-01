@@ -16,17 +16,19 @@ Listez les différentes catégories de tests :
 
  Temps par coup : chronométrer avec time.time()
 
- Utilisation de la mémoire : 
+ Utilisation de la mémoire : pas de dépassement de la limite imposée
 
 **Tests stratégiques : Joue-t-il bien ?**
 
- Gagne contre un agent aléatoire : jouer 100 parties et analyser les résultats
+ Gagne contre un agent aléatoire : doit gagner 80% des matchs contre RandomAgent
 
  Bloque les menaces évidentes : créer états de plateau et voir s'il bloque des les menaces évidentes
 
-**Critère de succès** : L'agent doit gagner > 80% contre RandomAgent
+## Critère de succès ##
 
-# Tâche 4.2 # 
+L'agent doit gagner > 80% contre RandomAgent
+
+# Tâche 4.2 #
 
 ```
 État du plateau :
@@ -78,8 +80,8 @@ Attendu : L'agent joue la colonne 3 pour bloquer
 . . . . . . .
 . . . . . . .
 . . . . . . .
-. . . . . . .
-O O O . . . .  <- L'adversaire a 3 alignés
-X X X . . . .  <- L'agent a 3 alignés
+O X . . . . .
+O X . . . . .  <- L'adversaire a 3 alignés
+O X . . . . .  <- L'agent a 3 alignés
 ```
-Attendu : L'agent joue la colonne 3 pour gagner, et non pas colonne 1 pour bloquer
+Attendu : L'agent joue la colonne 1 pour gagner, et non pas colonne 0 pour bloquer
