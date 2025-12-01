@@ -223,7 +223,3 @@ class TestSmartAgent(unittest.TestCase):
         row = 5 
         col = 3 
         self.assertFalse(agent._check_win_from_position(board, row, col, channel =0))
-
-if __name__ == '__main__':
-    unittest.main()
-

@@ -1,5 +1,4 @@
 # test_random_agent.py
-# type: ignore[reportMissingImports]
 
 from pettingzoo.classic import connect_four_v3
 import numpy as np
@@ -11,7 +10,7 @@ def play_game():
 
     Returns : the result of the game
     """
-    env = connect_four_v3.env(render_mode="human") # ou render_mode="rdb_array" ou bien None
+    env = connect_four_v3.env(render_mode= None) # ou render_mode="rdb_array" ou bien None
     env.reset(seed=42)
 
     count = 0 # counts number of steps
@@ -64,11 +63,27 @@ def play_multiple_games(num_games=10):
         print(f"Game {i+1} results: {results}")
     return results, actions
 
-### Test the RandomAgent by playing multiple games ##
-results, actions = play_multiple_games(100)
 
-print(f"Game results: {results}")
-average = np.mean(actions)
-min = np.min(actions)
-max = np.max(actions)
-print(f"Average action : {average}, minimum actions : {min}, maximum actions : {max}")
+def test_single_game_runs():
+    outcome, count = play_game()
+
+    assert outcome in ("player_0", "player_1", "draw")
+    assert count > 0
+
+def test_multiple_games_statistics():
+    results, actions = play_multiple_games(20)
+
+    assert set(results.keys()) == {"player_0", "player_1", "draw"}
+    assert len(actions) == 20
+    assert all(a > 0 for a in actions)
+    assert sum(results.values()) == 20
+
+### Test the RandomAgent by playing multiple games ##
+
+# results, actions = play_multiple_games(100)
+
+# print(f"Game results: {results}")
+# average = np.mean(actions)
+# min = np.min(actions)
+# max = np.max(actions)
+# print(f"Average action : {average}, minimum actions : {min}, maximum actions : {max}")

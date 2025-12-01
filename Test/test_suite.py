@@ -10,7 +10,7 @@ import tracemalloc
 from pettingzoo.classic import connect_four_v3
 from src.smart_agent import SmartAgent
 from src.random_agent import RandomAgent
-from test_smart_vs_random import play_game_rvs, play_multiple_games
+from Test.test_smart_vs_random import play_game_rvs, play_multiple_games_rvs
 
 
 # Mock Random Agent for testing purposes (independent test)
@@ -156,15 +156,10 @@ class TestPerformanceAndTournament(unittest.TestCase):
         Test the SmartAgent in a tournament setting against RandomAgent.
         """
         num_games = 100
-        results, _ = play_multiple_games(num_games=num_games)
+        results, _, _ = play_multiple_games_rvs(num_games=num_games)
 
         smart_wins = results["smart_win"]
         random_wins = results["random_win"]
 
         self.assertGreaterEqual(smart_wins, random_wins, "SmartAgent should win more games than RandomAgent")
         self.assertGreaterEqual(smart_wins, 80, "SmartAgent should win 80% of the time against RandomAgent")
-
-
-if __name__ == '__main__':
-    unittest.main()
-

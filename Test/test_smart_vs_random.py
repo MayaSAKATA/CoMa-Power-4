@@ -57,7 +57,7 @@ def play_game_rvs(player_0=False):
 
 
 
-def play_multiple_games(num_games=10):
+def play_multiple_games_rvs(num_games=10):
     """
     Play multiple games to test SmartAgent against RandomAgent
 
@@ -70,7 +70,7 @@ def play_multiple_games(num_games=10):
     actions = []
     results = {"smart_win":0, "random_win":0, "draw":0}
 
-    print(f"\nLet's start the game in {num_games} rounds")
+    #print(f"\nLet's start the game in {num_games} rounds")
 
     for i in range (num_games): 
         player_0 = (i%2 == 0)
@@ -87,20 +87,33 @@ def play_multiple_games(num_games=10):
         actions.append(count)
         #print(f"Game {i+1} results: {results}")
 
-    return results, actions
+    return results, actions, smart_agent_name
 
 
-results, actions = play_multiple_games(100)
+def test_single_game_runs_rvs():
+    outcome, count, smart = play_game_rvs(player_0=True)
+    assert outcome in ("player_0", "player_1", "draw")
+    assert outcome in ("player_0", "player_1", "draw")
+    assert count > 0
+    assert smart in ("player_0", "player_1")
 
-print(f"Game results: {results}")
-average = np.mean(actions)
-min = np.min(actions)
-max = np.max(actions)
-print(f"Average action : {average}, minimum actions : {min}, maximum actions : {max}")
+def test_multiple_games_statistics_rvs():
+    results, actions, _ = play_multiple_games_rvs(20)
+
+    assert set(results.keys()) == {"smart_win", "random_win", "draw"}
+    assert len(actions) == 20
+    assert all(a > 0 for a in actions)
+    assert sum(results.values()) == 20
+
+    assert results["smart_win"] + results["draw"] > 0
 
 
+### Test the RandomAgent vs SmartAgent by playing multiple games ##
 
+# results, actions = play_multiple_games(100)
 
-
-
-
+# print(f"Game results: {results}")
+# average = np.mean(actions)
+# min = np.min(actions)
+# max = np.max(actions)
+# print(f"Average action : {average}, minimum actions : {min}, maximum actions : {max}")
