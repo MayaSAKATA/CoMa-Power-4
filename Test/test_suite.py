@@ -32,6 +32,36 @@ class TestConnectFour(unittest.TestCase):
         self.env.reset()
         self.agent = SmartAgent(self.env)
 
+
+    def test_valid_action_bounds(self):
+        """
+        Test that the action chosen by the agent is within valid bounds (0-6).
+        """
+        observation, _, _, _, _ = self.env.last()
+        obs = observation['observation']
+        mask = observation['action_mask']
+        
+        action = self.agent.choose_action(obs, action_mask=mask)
+        
+        self.assertIn(action, range(7), "Action must be between 0 and 6")
+        self.assertIsInstance(action, (int, np.integer), "Action must be an integer")
+
+    def test_respect_action_mask(self):
+        """
+        Test that the agent respects the action mask and only chooses valid actions.
+        """
+        obs = np.zeros((6, 7, 2), dtype=np.int8)
+        
+        mask = np.array([0, 0, 0, 0, 0, 0, 1], dtype=np.int8)
+
+        for col in range(6):
+            obs[:, col, 0] = 1 # Fill columns 0-5 to make them invalid
+
+        action = self.agent.choose_action(obs, action_mask=mask)
+        
+        self.assertEqual(action, 6, "Agent should choose the only valid action (column 6)")
+        self.assertEqual(mask[action], 1, "Agent chose an invalid action according to the mask")
+
     def test_scenario1_winning_move(self):
         """
         Test that the agent takes the winning move when available.
