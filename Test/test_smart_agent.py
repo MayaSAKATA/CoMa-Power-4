@@ -15,7 +15,7 @@ class MockActionSpace:
 
 class MockEnvironment:
     """
-    Simulate l'environnement PettingZoo requis par SmartAgent.__init__.
+    Simulate the environnement PettingZoo required by SmartAgent.__init__.
     """    
     agents = ["player_0", "player_1"]
     
