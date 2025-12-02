@@ -86,7 +86,7 @@ def run_tournament(agents, n_games=100):
     
     results = {"wins": 0, "losses": 0, "draws": 0}
     
-    print(f"Running {n_games} games: {agent1_name} vs {agent2_name}")
+    print(f"\nRunning {n_games} games: {agent1_name} vs {agent2_name}")
     print(f"Alternating first player\n")
     
     for i in tqdm(range(n_games)):
@@ -117,7 +117,7 @@ def run_tournament(agents, n_games=100):
     
     print("\nTournament complete!")
     print(f"{agent1_name} wins:   {results['wins']}")
-    print(f"{agent1_name} losses: {results['losses']}")
+    print(f"{agent2_name} wins: {results['losses']}")
     print(f"Draws:             {results['draws']}")
     
     return results
@@ -126,6 +126,9 @@ def run_tournament(agents, n_games=100):
 if __name__ == "__main__":
     from smart_agent import SmartAgent
     from random_agent import RandomAgent
+    from minimax_agent import MinimaxAgent
     
-    agents = [SmartAgent, RandomAgent]
-    results = run_tournament(agents, n_games=100)
+    #agents = [SmartAgent, RandomAgent]
+
+    agents = [SmartAgent, MinimaxAgent]
+    results = run_tournament(agents, 50)
