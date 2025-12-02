@@ -1,11 +1,14 @@
 """
 Minimax agent with alpha-beta pruning
 """
+from pettingzoo.classic import connect_four_v3
+from tqdm import tqdm
 from tournament import run_tournament
 from smart_agent import SmartAgent
 
 import numpy as np
 import random
+import time
 
 
 class MinimaxAgent:
@@ -76,7 +79,6 @@ class MinimaxAgent:
         #   - Prune if possible
 
         # Base case 1: Check if game is over
-
         if self._check_win(board, 0):  # We won
             return 10000 + depth  # Prefer faster wins
         if self._check_win(board, 1):  # Opponent won
@@ -88,8 +90,6 @@ class MinimaxAgent:
         
         # Base case 3 : board full (draw)
         valid_moves = self._get_valid_moves(board)
-        # if len(valid_moves) == 0:
-        #     return 0
         
         # Recursive case: maximizing player (us)
         if maximizing:
@@ -266,7 +266,45 @@ class MinimaxAgent:
 
 
 if __name__ == "__main__":
-    agents = [SmartAgent, MinimaxAgent]
-    results = run_tournament(agents, num_games=10)
+    depths=[2, 3, 4, 5, 6]
+    results_summary = []
 
-    print("Tournament results:", results)
+
+    for depth in tqdm(depths, desc="Testing depths", unit="depth"):
+        env = connect_four_v3.env()
+        env.reset()
+
+        agent = MinimaxAgent(env, depth=depth)
+        times = []
+        for _ in tqdm(range(5), desc=f"Measuring time (depth={depth})", leave=False):
+            env.reset()
+            observation, _, _, _, _ = env.last()
+            
+            start = time.time()
+            agent.choose_action(observation["observation"],action_mask=observation["action_mask"])
+            times.append(time.time() - start)
+        
+        avg_time = sum(times) / len(times)
+    
+        # Temporary class with new depth
+        class MinimaxDepthN(MinimaxAgent):
+                def __init__(self, env):
+                    super().__init__(env, depth=depth)
+        # Run tournament
+        agents = [MinimaxDepthN, SmartAgent]
+        results = run_tournament(agents, n_games=5)
+
+        results_summary.append({"depth": depth,"avg_time": avg_time,"wins": results["wins"],"losses": results["losses"],
+                                "draws": results["draws"]})
+
+    print("\nSummary of results:")
+    for res in results_summary:
+        print(f"Depth {res["depth"]}: Avg Time: {res["avg_time"]:.4f}s, Wins: {res["wins"]}, Losses: {res["losses"]}, Draws: {res["draws"]}")
+
+
+# Summary of results:
+# Depth 2: Avg Time: 0.0348s, Wins: 5, Losses: 0, Draws: 0
+# Depth 3: Avg Time: 0.1744s, Wins: 5, Losses: 0, Draws: 0
+# Depth 4: Avg Time: 0.8172s, Wins: 5, Losses: 0, Draws: 0
+# Depth 5: Avg Time: 3.8324s, Wins: 5, Losses: 0, Draws: 0
+# Depth 6: Avg Time: 14.2014s, Wins: 5, Losses: 0, Draws: 0

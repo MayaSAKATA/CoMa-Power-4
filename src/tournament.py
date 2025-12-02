@@ -68,7 +68,7 @@ def play_single_game(env, agent1_instance, agent2_instance):
         return 0
 
 
-def run_tournament(agents, n_games=100):
+def run_tournament(agents, n_games=50):
     """
     Runs n_games between two agents, alternating which agent goes first.
     
@@ -127,8 +127,12 @@ if __name__ == "__main__":
     from smart_agent import SmartAgent
     from random_agent import RandomAgent
     from minimax_agent import MinimaxAgent
-    
-    #agents = [SmartAgent, RandomAgent]
+    #from mcts_agent import MCTSAgent
 
+    #agents = [SmartAgent, RandomAgent]
     agents = [SmartAgent, MinimaxAgent]
-    results = run_tournament(agents, 50)
+
+    #agents = [MinimaxAgent, MCTSAgent]
+    #agents = [MCTSAgent, SmartAgent]        
+
+    results = run_tournament(agents)
