@@ -12,17 +12,6 @@ from src.smart_agent import SmartAgent
 from src.random_agent import RandomAgent
 from Test.test_smart_vs_random import play_game_rvs, play_multiple_games_rvs
 
-
-# Mock Random Agent for testing purposes (independent test)
-class RandomAgent:
-    def __init__(self, env):
-        self.env = env
-    
-    def choose_action(self, observation, action_mask):
-        valid_actions = [i for i, valid in enumerate(action_mask) if valid == 1]
-        return random.choice(valid_actions)
-    
-
 class TestConnectFour(unittest.TestCase):
     def setUp(self):
         """
