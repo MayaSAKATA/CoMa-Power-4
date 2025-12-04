@@ -1,16 +1,23 @@
-# Partie 3
+# Partie 3 : Décomposition du problème 
 
-## Tâche 3.1
+## Tâche 3.1 : Décomposer l'implémentation de l'agent
 
-Un agent doit choisir quelle colonne jouer. Décomposez cela en sous-tâches :
+Un agent doit choisir quelle colonne jouer. 
 
 1. Analyse des entrées : Quelles informations l'agent reçoit-il ?
-L'agent reçoit l'état de la partie : où sont ses jetons à lui et ceux de son adversaire.
+
+L'agent reçoit l'état de la partie : où sont les différents jetons ansi que le masque d'action : les colonnes dans lesquelles il a le droit de jouer. 
+
 2. Détection des coups valides : Comment déterminez-vous quelles colonnes sont jouables ?
-Il faut que la colonne ne soit pas pleine.
+
+Les colonnes qui sont jouables sont celles qui ne sont pas pleines. Nous les determinons grace au masque d'action qui est une liste de taille 7 remplie de 0 et de 1 selon si la colonne est pleine ou non. 
+
 3. Sélection du coup : Quel algorithme utiliserez-vous pour choisir un coup ?
+
 4. Sortie : Que doit retourner l'agent ?
-Le numéro de la colonne dans laquelle il souhaite ajouter son jeton.
+
+L'agent doit retourner le numéro de la colonne dans laquelle il souhaite ajouter son jeton.
+
 
 ## Tâche 3.2
 

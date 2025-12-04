@@ -1,4 +1,4 @@
-# CoMa-Power-4 
+# Activité 1 : Comprendre le Puissance 4 et le framework Python PettingZoo 
 
 ## Partie 1 : Règles du Puissance 4
 
