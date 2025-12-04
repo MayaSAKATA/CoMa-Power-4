@@ -10,7 +10,7 @@ def play_game():
 
     Returns : the result of the game
     """
-    env = connect_four_v3.env(render_mode= None) # ou render_mode="rdb_array" ou bien None
+    env = connect_four_v3.env(render_mode= human) # or render_mode="rdb_array" or None
     env.reset(seed=42)
 
     count = 0 # counts number of steps
@@ -47,6 +47,9 @@ def play_game():
 def play_multiple_games(num_games=10):
     """
     Play multiple games to test RandomAgent
+
+    Parameters: 
+        num_games: number of games to play
     
     Returns : the result of the game
     """

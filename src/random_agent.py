@@ -1,9 +1,12 @@
 """
 My Random Agent for Connect Four
+
 This agent chooses moves randomly from the available (valid) columns.
 """
 
 import random
+
+
 class RandomAgent:
     """
     A simple agent that plays randomly
@@ -58,7 +61,20 @@ class RandomAgent:
         Choose a random valid action without using .sample()
 
         This is a learning exercise to understand what action_mask does
+
+        Parameters: 
+            observation: numpy array (6, 7, 2) - current board state
+            reward: float - reward from previous action
+            terminated: bool - is the game over?
+            truncated: bool - was the game truncated?
+            info: dict - additional info
+            action_mask: numpy array (7,) - which columns are valid (1) or full (0)
+
+        Returns:
+            action: int (0-6) - which column to play 
+
         """
+        
         if terminated or truncated: # check if game is over
             return None
         
