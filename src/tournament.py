@@ -130,9 +130,9 @@ if __name__ == "__main__":
     #from mcts_agent import MCTSAgent
 
     #agents = [SmartAgent, RandomAgent]
-    agents = [SmartAgent, MinimaxAgent]
+    #agents = [SmartAgent, MinimaxAgent]
 
     #agents = [MinimaxAgent, MCTSAgent]
     #agents = [MCTSAgent, SmartAgent]        
 
-    results = run_tournament(agents)
+    #results = run_tournament(agents)

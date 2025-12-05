@@ -37,6 +37,17 @@ class SmartAgent:
         2. Block opponent from winning
         3. Play center if available
         4. Random valid move
+
+        Parameters : 
+            observation: numpy array (6, 7, 2) - current board state
+            reward: float - reward from previous action
+            terminated: bool - is the game over?
+            truncated: bool - was the game truncated?
+            info: dict - additional info
+            action_mask: numpy array (7,) - which columns are valid (1) or full (0)
+
+        Returns : 
+            int (0-6) - which column to play 
         """
 
         # Get valid actions
@@ -62,6 +73,11 @@ class SmartAgent:
     def _creates_double_threat(self, board, col, channel):
         """
         Check if playing column col creates two separate winning threats.
+
+        Parameters: 
+            board: numpy array (6, 7, 2) - current board state
+            col: column index (0-6)
+            channel: 0 for current player, 1 for opponent
 
         Returns:
             True if move creates double threat, False otherwise
@@ -94,6 +110,17 @@ class SmartAgent:
         3. Create double threat
         4. Prefer center columns
         5. Random valid move
+
+        Parameters : 
+            observation: numpy array (6, 7, 2) - current board state
+            reward: float - reward from previous action
+            terminated: bool - is the game over?
+            truncated: bool - was the game truncated?
+            info: dict - additional info
+            action_mask: numpy array (7,) - which columns are valid (1) or full (0)
+
+        Returns : 
+            int (0-6) - which column to play 
         """
 
         # Get valid actions
@@ -170,7 +197,7 @@ class SmartAgent:
             col: column index (0-6)
 
         Returns:
-            row index (0-5) if space available, None if column full
+            row: index (0-5) if space available, None if column full
         """
         # TODO: Implement this
         # Hint: Start from bottom row (5) and go up
@@ -193,7 +220,7 @@ class SmartAgent:
             channel: 0 or 1 (which player's pieces to check)
 
         Returns:
-            True if this position creates 4 in a row/col/diag, False otherwise
+            True if this position creates at least 4 in a row/col/diag, False otherwise
         """
         # TODO: Check all 4 directions: horizontal, vertical, diagonal /, diagonal \
         # Hint: Count consecutive pieces in both directions from (row, col)

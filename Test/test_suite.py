@@ -13,6 +13,10 @@ from src.random_agent import RandomAgent
 from Test.test_smart_vs_random import play_game_rvs, play_multiple_games_rvs
 
 class TestConnectFour(unittest.TestCase):
+    """
+    Test that the agents behave in accordance with the rules of the games 
+    and the imposed constraints 
+    """
     def setUp(self):
         """
         Initializes the agent by providing it with the required environment.

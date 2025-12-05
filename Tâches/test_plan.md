@@ -1,16 +1,18 @@
-# Tâche 4.1 #
+# Exercice 4 : Concevoir et implémenter des tests
 
-## Que tester ? ##
+## Partie 1 : Concevoir votre plan de test 
+
+### Tâche 4.1 
 
 Listez les différentes catégories de tests :
 
 **Tests fonctionnels  : L'agent fonctionne-t-il correctement ?**
 
- Sélection de coup valide
+ Sélection de coup valide : Créer des états de plateau spécifiques et vérifier que l'agent choisit des coups légaux
 
- Respect du masque d'action
+ Respect du masque d'action : Créer des états de plateau et un mask d'actions et vérifier que l'agent choisit des coups legaux
 
- Gestion de la fin de partie
+ Gestion de la fin de partie 
 
 **Tests de performance : Est-il rapide et efficace ?**
 
@@ -22,13 +24,13 @@ Listez les différentes catégories de tests :
 
  Gagne contre un agent aléatoire : doit gagner 80% des matchs contre RandomAgent
 
- Bloque les menaces évidentes : créer états de plateau et voir s'il bloque des les menaces évidentes
+ Bloque les menaces évidentes : créer des états de plateau et voir s'il bloque des les menaces évidentes
 
-## Critère de succès ##
+Critère de succès :
 
 L'agent doit gagner > 80% contre RandomAgent
 
-# Tâche 4.2 #
+### Tâche 4.2 : Conception de cas de test 
 
 ```
 État du plateau :
@@ -81,7 +83,7 @@ Attendu : L'agent joue la colonne 3 pour bloquer
 . . . . . . .
 . . . . . . .
 O X . . . . .
-O X . . . . .  <- L'adversaire a 3 alignés
-O X . . . . .  <- L'agent a 3 alignés
+O X . . . . .  <- L'adversaire (O) a 3 alignés
+O X . . . . .  <- L'agent (X) a 3 alignés
 ```
 Attendu : L'agent joue la colonne 1 pour gagner, et non pas colonne 0 pour bloquer

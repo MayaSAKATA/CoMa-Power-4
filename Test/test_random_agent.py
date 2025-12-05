@@ -10,7 +10,7 @@ def play_game():
 
     Returns : the result of the game
     """
-    env = connect_four_v3.env(render_mode= human) # or render_mode="rdb_array" or None
+    env = connect_four_v3.env(render_mode= None) # or render_mode="rdb_array" or None
     env.reset(seed=42)
 
     count = 0 # counts number of steps
@@ -83,7 +83,7 @@ def test_multiple_games_statistics():
 
 ### Test the RandomAgent by playing multiple games ##
 
-# results, actions = play_multiple_games(100)
+#results, actions = play_multiple_games(100)
 
 # print(f"Game results: {results}")
 # average = np.mean(actions)

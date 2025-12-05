@@ -24,6 +24,9 @@ class MockEnvironment:
 
 
 class TestSmartAgent(unittest.TestCase):
+    """
+    Test the smart agent 
+    """
     def setUp(self):
         """
         Initializes the agent by providing it with the required dummy environment.
@@ -36,9 +39,12 @@ class TestSmartAgent(unittest.TestCase):
 
     def test_get_valid_actions(self):
         """ 
-        Method test _get_valid_actions 
+        Test the _get_valid_actions method 
 
-        Test when all columns are valid and when only odd columns are valid 
+
+        The test covers two senarios: 
+            1. All actons are valid 
+            2. Only actions located at odd indices are valid
         """
         agent = self.agent
         mask = [1, 1, 1, 1, 1, 1, 1]  # All columns valid
@@ -49,9 +55,11 @@ class TestSmartAgent(unittest.TestCase):
 
     def test_get_next_row(self): 
         """
-        Method test _get_nest_row 
+        Test the _get_nest_row method
         
-        Test in case of empty board and of column with one piece 
+        The test covers two senarios: 
+            1. In case of an empty board
+            2. In case of the existence of a piece in the column 
         """
 
         agent = self.agent
@@ -66,18 +74,18 @@ class TestSmartAgent(unittest.TestCase):
     def test_find_winning_move(self):
 
         """
-        Method test _find_winning_move
+        Test the _find_winning_move method
 
         Test in case of victory in column and in increase diagonal 
-        and in case of block opponent from victory in row and decrease diagonal
+        and in case of blocking the opponent from victory in row and decrease diagonal
         """
 
         agent = self.agent
         valid_actions = [0, 1, 2, 3, 4, 5, 6]
 
-        #case 1 : win on a column (here is the first column)
+        #case 1 : win in column (here is the first column)
 
-        vertical=np.zeros((6,7,2),dtype=int) #create an empty board
+        vertical=np.zeros((6,7,2)) #create an empty board
         #place 3 pieces on column 1 for the current agent 
         vertical[5,0,0] = 1
         vertical[4,0,0] = 1 
@@ -87,7 +95,7 @@ class TestSmartAgent(unittest.TestCase):
         winning_move = agent._find_winning_move(vertical, valid_actions, channel=0)
         self.assertEqual(winning_move, 0)
 
-        #case 2 : Block opponent from winning, on a row 
+        #case 2 : Block opponent from winning in row 
 
         horizontal=np.zeros((6,7,2),dtype=int)
         #place 3 pieces on row 5, for opponent player
@@ -100,7 +108,7 @@ class TestSmartAgent(unittest.TestCase):
         blocking_move = agent._find_winning_move(horizontal, valid_actions, channel=1)
         self.assertEqual(blocking_move, 6)
 
-        #case 3 : victory in an increasing diagonal
+        #case 3 : victory in increasing diagonal
 
         indiag = np.zeros((6,7,2),dtype=int)
         #set pieces for current player
@@ -120,7 +128,7 @@ class TestSmartAgent(unittest.TestCase):
         winning_move = agent._find_winning_move(indiag, valid_actions, channel=0)
         self.assertEqual(winning_move, 3)
 
-        #case 4: block opponent from winning on a decreasing diagonal
+        #case 4: block opponent from winning in decreasing diagonal
 
         dediag = np.zeros((6,7,2),dtype=int)
 
@@ -142,10 +150,10 @@ class TestSmartAgent(unittest.TestCase):
     def test_check_win_from_position(self):
 
         """
-        Method test _check_win_from_position
+        Test the _check_win_from_position method 
 
         Test in case of victory in row, column, increase and decrease diagonal, 
-        in case of no victory and blockage by the opponent 
+        also in case of no victory and blocking by the opponent 
         """
 
         agent = self.agent

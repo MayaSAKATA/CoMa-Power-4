@@ -110,7 +110,7 @@ def test_multiple_games_statistics_rvs():
 
 ### Test the RandomAgent vs SmartAgent by playing multiple games ##
 
-# results, actions = play_multiple_games(100)
+#results, actions, smart_agent_name= play_multiple_games_rvs(100)
 
 # print(f"Game results: {results}")
 # average = np.mean(actions)

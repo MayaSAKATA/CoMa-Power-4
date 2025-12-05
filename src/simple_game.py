@@ -1,7 +1,7 @@
 # simple_game.py
 
 # type: ignore[reportMissingImports]
-import src.print_board as pb
+import print_board as pb
 from pettingzoo.classic import connect_four_v3
 
 env = connect_four_v3.env(render_mode="human") # ou render_mode="rdb_array" ou bien None

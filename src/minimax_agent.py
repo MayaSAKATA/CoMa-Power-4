@@ -33,6 +33,17 @@ class MinimaxAgent:
     def choose_action(self, observation, reward=0.0, terminated=False, truncated=False, info=None, action_mask=None):
         """
         Choose action using minimax algorithm
+
+        Parameters : 
+            observation: numpy array (6, 7, 2) - current board state
+            reward: float - reward from previous action
+            terminated: bool - is the game over?
+            truncated: bool - was the game truncated?
+            info: dict - additional info
+            action_mask: numpy array (7,) - which columns are valid (1) or full (0)
+
+        Returns : 
+            int (0-6) - which column to play 
         """
         valid_actions = [i for i, valid in enumerate(action_mask) if valid == 1]
 
@@ -58,7 +69,7 @@ class MinimaxAgent:
         Minimax algorithm with alpha-beta pruning
 
         Parameters:
-            board: Current board state
+            board: numpy array (6, 7, 2) - current board state
             depth: Remaining depth to search
             alpha: Best value for maximizer
             beta: Best value for minimizer
@@ -145,6 +156,9 @@ class MinimaxAgent:
         """
         Get list of valid column indices
 
+        Parameters: 
+            board: numpy array (6, 7, 2) - current board state
+
         Returns:
             list of valid columns
         """
@@ -159,8 +173,10 @@ class MinimaxAgent:
     def _evaluate_window(self, window):
         """
         Evaluate a window of 4 positions
+
         Parameters:
             window: numpy array of shape (4, 2)
+
         Returns:
             float: score for this window
         """
@@ -190,6 +206,9 @@ class MinimaxAgent:
     def _evaluate(self, board):
         """
         Evaluate board position
+
+        Parameters: 
+            board: numpy array (6, 7, 2) - current board state
 
         Returns:
             float: score (positive = good for us)
@@ -233,6 +252,10 @@ class MinimaxAgent:
     def _check_win(self, board, channel):
         """
         Check if player has won
+
+        Parameters: 
+            board: numpy array (6, 7, 2) - current board state
+            channel: 0 for current player, 1 for opponent
 
         Returns:
             bool: True if won
@@ -299,7 +322,7 @@ if __name__ == "__main__":
 
     print("\nSummary of results:")
     for res in results_summary:
-        print(f"Depth {res["depth"]}: Avg Time: {res["avg_time"]:.4f}s, Wins: {res["wins"]}, Losses: {res["losses"]}, Draws: {res["draws"]}")
+        print(f'Depth {res["depth"]}: Avg Time: {res["avg_time"]:.4f}s, Wins: {res["wins"]}, Losses: {res["losses"]}, Draws: {res["draws"]}')
 
 
 # Summary of results:
