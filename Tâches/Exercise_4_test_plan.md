@@ -1,8 +1,8 @@
 # Exercice 4 : Concevoir et implémenter des tests
 
-## Partie 1 : Concevoir votre plan de test 
+## Partie 1 : Concevoir votre plan de test
 
-### Tâche 4.1 
+### Tâche 4.1
 
 Listez les différentes catégories de tests :
 
@@ -12,7 +12,7 @@ Listez les différentes catégories de tests :
 
  Respect du masque d'action : Créer des états de plateau et un mask d'actions et vérifier que l'agent choisit des coups legaux
 
- Gestion de la fin de partie 
+ Gestion de la fin de partie
 
 **Tests de performance : Est-il rapide et efficace ?**
 
@@ -30,7 +30,7 @@ Critère de succès :
 
 L'agent doit gagner > 80% contre RandomAgent
 
-### Tâche 4.2 : Conception de cas de test 
+### Tâche 4.2 : Conception de cas de test
 
 ```
 État du plateau :

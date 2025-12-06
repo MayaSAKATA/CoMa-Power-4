@@ -1,5 +1,3 @@
-# type: ignore[reportMissingImports]
-
 from pettingzoo.classic import connect_four_v3
 import numpy as np
 

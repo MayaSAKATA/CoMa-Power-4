@@ -1,6 +1,11 @@
+# minimax_agent.py
+
 """
-Minimax agent with alpha-beta pruning
+My Minimax Agent for Connect Four
+
+Agent with alpha-beta pruning
 """
+
 from pettingzoo.classic import connect_four_v3
 from tqdm import tqdm
 from tournament import run_tournament

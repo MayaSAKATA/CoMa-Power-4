@@ -1,4 +1,4 @@
-# Exercice 5 : Défis avancés 
+# Exercice 5 : Défis avancés
 
 ## Défi 1 : Algorithme Minimax
 

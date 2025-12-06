@@ -1,6 +1,5 @@
 # simple_game.py
 
-# type: ignore[reportMissingImports]
 import print_board as pb
 from pettingzoo.classic import connect_four_v3
 

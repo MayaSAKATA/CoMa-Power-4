@@ -9,8 +9,6 @@ This agent uses rule-based heuristics to play strategically.
 import random
 import numpy as np 
 
-
-
 class SmartAgent:
     """
     A rule-based agent that plays strategically
@@ -72,6 +70,8 @@ class SmartAgent:
     
     def _creates_double_threat(self, board, col, channel):
         """
+        OPTIONAL
+        
         Check if playing column col creates two separate winning threats.
 
         Parameters: 
@@ -102,6 +102,8 @@ class SmartAgent:
 
     def choose_action(self, observation, reward=0.0, terminated=False, truncated=False, info=None, action_mask=None):
         """
+        OPTIONAL
+
         Choose an action using improved rule-based strategy
 
         Strategy priority:

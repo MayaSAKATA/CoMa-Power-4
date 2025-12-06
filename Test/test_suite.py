@@ -10,7 +10,7 @@ import tracemalloc
 from pettingzoo.classic import connect_four_v3
 from src.smart_agent import SmartAgent
 from src.random_agent import RandomAgent
-from Test.test_smart_vs_random import play_game_rvs, play_multiple_games_rvs
+from Test.test_smart_vs_random_OPTIONAL import play_game_rvs, play_multiple_games_rvs
 
 class TestConnectFour(unittest.TestCase):
     """

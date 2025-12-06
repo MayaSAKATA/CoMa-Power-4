@@ -127,12 +127,9 @@ if __name__ == "__main__":
     from smart_agent import SmartAgent
     from random_agent import RandomAgent
     from minimax_agent import MinimaxAgent
-    #from mcts_agent import MCTSAgent
 
-    #agents = [SmartAgent, RandomAgent]
+    agents = [SmartAgent, RandomAgent]
+    
     #agents = [SmartAgent, MinimaxAgent]
 
-    #agents = [MinimaxAgent, MCTSAgent]
-    #agents = [MCTSAgent, SmartAgent]        
-
-    #results = run_tournament(agents)
+    results = run_tournament(agents)
