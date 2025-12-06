@@ -328,11 +328,3 @@ if __name__ == "__main__":
     print("\nSummary of results:")
     for res in results_summary:
         print(f'Depth {res["depth"]}: Avg Time: {res["avg_time"]:.4f}s, Wins: {res["wins"]}, Losses: {res["losses"]}, Draws: {res["draws"]}')
-
-
-# Summary of results:
-# Depth 2: Avg Time: 0.0348s, Wins: 5, Losses: 0, Draws: 0
-# Depth 3: Avg Time: 0.1744s, Wins: 5, Losses: 0, Draws: 0
-# Depth 4: Avg Time: 0.8172s, Wins: 5, Losses: 0, Draws: 0
-# Depth 5: Avg Time: 3.8324s, Wins: 5, Losses: 0, Draws: 0
-# Depth 6: Avg Time: 14.2014s, Wins: 5, Losses: 0, Draws: 0

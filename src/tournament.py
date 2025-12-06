@@ -1,5 +1,8 @@
 # tournament.py
-# Run tournaments between any two agents in Connect Four
+"""
+Run tournaments between any two agents in Connect Four
+"""
+
 from pettingzoo.classic import connect_four_v3
 from tqdm import tqdm
 
@@ -126,7 +129,7 @@ def run_tournament(agents, n_games=50):
 if __name__ == "__main__":
     from smart_agent import SmartAgent
     from random_agent import RandomAgent
-    from minimax_agent import MinimaxAgent
+    from agent import MinimaxAgent
 
     agents = [SmartAgent, RandomAgent]
     
