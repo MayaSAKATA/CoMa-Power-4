@@ -1,5 +1,15 @@
 # CoMa-Power-4
 
+Implémentation en Python d'agents qui jouent au Puissance 4 pour [ML Arena](https://ml-arena.com/).
+
+Utilisation de la librairie [Pettingzoo](https://pettingzoo.farama.org/environments/classic/connect_four/).
+
+Nous avons soumi deux agents :
+
+- CoMa pour SmartAgent
+- CoMa+ pour MinimaxAgent
+
+
 ## Partie 1 : Règles du Puissance 4
 
 ### Tâche 1.1 : Analyse des règles du jeu
