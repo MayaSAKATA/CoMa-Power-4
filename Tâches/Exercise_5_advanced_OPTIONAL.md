@@ -20,12 +20,21 @@ Si la profondeur est trop grande, le programme devient trop lent, il peut aussi 
 
 L'étalage alpha-beta reduit l'espace de recherche en ignorant les branches qui n'affectent plus la décision. Si on rencontre sur une branche un resultat qui est moins bon que le resultat actuel, on arrête d'explorer cette branche car elle ne sera pas choisie quoiqu'il en soit.
 
+### Tâche 5.4 : Tester votre agent minimax
+
+En faisant un tournois de 50 parties avec SmartAgent on a les résultats suivant :
+```
+SmartAgent wins:   0
+MinimaxAgent wins: 50
+Draws:             0
+```
+Minimax gagne systématiquement.
+
 ### Tâche 5.5 : Optimiser la profondeur
 
 Les expérimentations sur la profondeur nous donnent :
 
 ```python
-# Summary of results:
 Depth 2: Avg Time: 0.0348s, Wins: 5, Losses: 0, Draws: 0
 Depth 3: Avg Time: 0.1744s, Wins: 5, Losses: 0, Draws: 0
 Depth 4: Avg Time: 0.8172s, Wins: 5, Losses: 0, Draws: 0

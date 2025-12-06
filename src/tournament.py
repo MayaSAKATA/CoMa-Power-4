@@ -129,10 +129,10 @@ def run_tournament(agents, n_games=50):
 if __name__ == "__main__":
     from smart_agent import SmartAgent
     from random_agent import RandomAgent
-    from agent import MinimaxAgent
+    from minimax_agent import MinimaxAgent
 
-    agents = [SmartAgent, RandomAgent]
+    #agents = [SmartAgent, RandomAgent]
     
-    #agents = [SmartAgent, MinimaxAgent]
+    agents = [SmartAgent, MinimaxAgent]
 
     results = run_tournament(agents)
