@@ -1,12 +1,12 @@
-# Activité 1 : Comprendre le Puissance 4 et le framework Python PettingZoo 
+# Activité 1 : Comprendre le Puissance 4 et le framework Python PettingZoo
 
 ## Partie 1 : Règles du Puissance 4
 
-### Tâche 1.1 : Analyse des règles du jeu 
+### Tâche 1.1 : Analyse des règles du jeu
 
-1. Quelles sont les dimensions d'un plateau de Puissance 4 ? 
+1. Quelles sont les dimensions d'un plateau de Puissance 4 ?
 
-Les dimensions d'un plateau sont 6x7, soit 6 lignes et 7 colonnes. 
+Les dimensions d'un plateau sont 6x7, soit 6 lignes et 7 colonnes.
 
 2. Comment un joueur gagne-t-il la partie ?  
 
@@ -14,18 +14,15 @@ Un joueur gagne la partie s'il fait une suite de 4 jetons en ligne, en colonne o
 
 3. Que se passe-t-il si le plateau est complètement rempli sans gagnant ?  
 
-Si le plateau est complètement rempli sans gagnant, il y a match nul, il n'y a pas de gagnant. 
+Si le plateau est complètement rempli sans gagnant, il y a match nul, il n'y a pas de gagnant.
 
-4. Un joueur peut-il placer un pion dans une colonne qui est déjà pleine ? 
+4. Un joueur peut-il placer un pion dans une colonne qui est déjà pleine ?
 
-Il n'est pas possible pour un joueur de placer un pion dans une colonne qui est déjà pleine. 
+Il n'est pas possible pour un joueur de placer un pion dans une colonne qui est déjà pleine.
 
-5. Quels sont les résultats possibles d'une partie ? 
+5. Quels sont les résultats possibles d'une partie ?
 
-Les résultats possible d'une partie sont victoire du joueur 1, victoire du joueur 2, égalité. 
-
-
-
+Les résultats possible d'une partie sont victoire du joueur 1, victoire du joueur 2, égalité.
 
 ### Tâche 1.2 : Analyse des conditions de victoire  
 
@@ -78,15 +75,13 @@ Victoire de O en ligne
 | — | O | X | O | — | — | — |<br>
 | X | X | O | O | O | O | — |<br>
 
-
 <br>
 <br>
 <br>
-
 
 2. Pour une position donnée, combien de directions doivent être vérifiées pour une victoire ?
 
-Pour une position données, 8 directions doivent être vérifiées pour une victoire (haut, bas, gauche, droite, et les 4 diagonales). 
+Pour une position données, 8 directions doivent être vérifiées pour une victoire (haut, bas, gauche, droite, et les 4 diagonales).
 
 3. Pour chacune de ces directions, quel est l'algorithme pour vérifier l'alignement de 4 pions ? Décrire l'algorithme sans le coder (pseudo-code)
 
@@ -119,14 +114,13 @@ fonction win_game (player,board,row,col,drow,dcol):
 
 ### Tâche 2.1 : Lire la documentation
 
-1. Quels sont les noms des deux agents dans l'environnement ? 
+1. Quels sont les noms des deux agents dans l'environnement ?
 
-Dans l'environnement, les noms des deux joueurs sont `player_0` et  `player_1`. 
+Dans l'environnement, les noms des deux joueurs sont `player_0` et  `player_1`.
 
-2. Que représente la variable `action` dans le code proposé par la documentation ? Quel est son type ? 
+2. Que représente la variable `action` dans le code proposé par la documentation ? Quel est son type ?
 
-La variable `action` représent le numéro de la colonne dans laquelle le joueur veut placer son jeton, son type est int (entier). 
-
+La variable `action` représent le numéro de la colonne dans laquelle le joueur veut placer son jeton, son type est int (entier).
 
 3. Que fait `env.agent_iter()` et `env.step(action)` ?
 
@@ -134,17 +128,16 @@ La variable `action` représent le numéro de la colonne dans laquelle le joueur
 
 4. Quelles informations sont retournées par `env.last()` ?
 
-`env.last()` retourne les informations du jeu de l'agent qui vient de jouer, à savoir, `obersavation`, `reward`, `terminated`, `troncated`et `info`. 
+`env.last()` retourne les informations du jeu de l'agent qui vient de jouer, à savoir, `obersavation`, `reward`, `terminated`, `troncated`et `info`.
 
-5. Quelle est la structure de l'observation retournée ? 
+5. Quelle est la structure de l'observation retournée ?
 
 observation (dict), reward (float), termination (bool), truncation (bool), info = env.last() (dict)
 
-6. Qu'est-ce qu'un "action mask" et pourquoi est-il important ? 
+6. Qu'est-ce qu'un "action mask" et pourquoi est-il important ?
 
 C'est un tableau de booléens de taille 7 reprensentant les 7 colonnes du jeu. Si la ième colonne est True alors le joueur peut jouer cette action, si elle est False, il ne peut pas.
-L'action mask est important car il empèche l'agent de joueur un mouvement illégal. 
-
+L'action mask est important car il empèche l'agent de joueur un mouvement illégal.
 
 ### Tâche 2.2 : Analyse de l'espace d'observation
 
@@ -162,29 +155,29 @@ Le vecteur de taille 2 sert à indiquer si la case est remplie et par quel joueu
 
 Dans chaque case du tableau, les valeurs possibles sont [0,1], [1,0], [0,0].
 
-
-## Partie 3 : Décomposition du problème 
+## Partie 3 : Décomposition du problème
 
 ### Tâche 3.1 : Décomposer l'implémentation de l'agent
 
-Un agent doit choisir quelle colonne jouer. 
+Un agent doit choisir quelle colonne jouer.
 
 1. Analyse des entrées : Quelles informations l'agent reçoit-il ?
 
-L'agent reçoit l'état de la partie : où sont les différents jetons ansi que le masque d'action : les colonnes dans lesquelles il a le droit de jouer. 
+L'agent reçoit l'état de la partie : où sont les différents jetons ansi que le masque d'action : les colonnes dans lesquelles il a le droit de jouer.
 
 2. Détection des coups valides : Comment déterminez-vous quelles colonnes sont jouables ?
 
-Les colonnes qui sont jouables sont celles qui ne sont pas pleines. Nous les determinons grace au masque d'action qui est une liste de taille 7 remplie de 0 et de 1 selon si la colonne est pleine ou non. 
+Les colonnes qui sont jouables sont celles qui ne sont pas pleines. Nous les determinons grace au masque d'action qui est une liste de taille 7 remplie de 0 et de 1 selon si la colonne est pleine ou non.
 
 3. Sélection du coup : Quel algorithme utiliserez-vous pour choisir un coup ?
+
+Commencer par placement aléatoire du coup, puis utiliser des algorithmes de jeux connus (minimax par exemple).
 
 4. Sortie : Que doit retourner l'agent ?
 
 L'agent doit retourner le numéro de la colonne dans laquelle il souhaite ajouter son jeton.
 
-
-### Tâche 3.2 : Conception d'algorithme - Progression 
+### Tâche 3.2 : Conception d'algorithme - Progression
 
 A votre avis, quels seraients les algorithmes à implémenter dans les agents (différentes stratégies de jeu), par ordre de complexité croissante :
 
@@ -195,14 +188,14 @@ Placement aléatoire du jeton.
 Placement aléatoire du jeton parmis les colonnes où il est valide de jouer (colonnes pas pleines).
 
 **Niveau 2** (Chercher des opportunités immédiates):<br>
-A chaque tour, vérifier si on peut gagner au prochain tour, si ce n'est pas le cas, placement du jeton de façon aléatoire. 
+A chaque tour, vérifier si on peut gagner au prochain tour, si ce n'est pas le cas, placement du jeton de façon aléatoire.
 Pour chaque colonne valide, simuler le coup et vérifier s'il y a une victoire.
 
 **Niveau 3** (Jeu défensif):<br> 
 Vérifier si l'adversaire peut gagner au prochain coup, si oui le bloquer, sinon stratégie de victoire immédiate.
 
 **Niveau 4** (Positionnement stratégique):<br> 
-Utilise une stratégie de victoire immédiate ou de defense immédiate et continue les lignes de jetons commencé, en privilégiant les colonnes du milieu. 
+Utilise une stratégie de victoire immédiate ou de defense immédiate et continue les lignes de jetons commencé, en privilégiant les colonnes du milieu.
 
 **Niveau 5+** (Algorithmes avancés): <br>
 Evalue plusieurs coups possibles et choisit celui avec un meilleur score.
@@ -279,5 +272,3 @@ class Agent:
             bool: 1 if there is a victory for the player, 0 otherwise
         """
 ```
-
-On pourrait créer des classes filles avec une méthode choose_action modifiée en fonction du niveau de l'agent.
